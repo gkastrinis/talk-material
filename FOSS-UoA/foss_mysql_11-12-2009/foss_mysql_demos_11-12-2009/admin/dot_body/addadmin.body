@@ -1,0 +1,28 @@
+<div class="msg">
+	<h2>Admin Control Panel - Add Site Admin</h2>
+
+	<form action="admincp.php?action=addAdmin" method="post">
+		<span>Enter your Password</span>
+		<?php
+		if($emptyCurrent){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }
+		else if($valid_err){?><br /><span style="color: #EE5D07;">Invalid Credentials</span>
+		<?php }?><br />
+		<input type="password" name="current" size="30" /><br />
+		<br />
+		<span>Username</span>
+		<?php if($emptyName){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="username" size="30" value="<?php echo htmlspecialchars($_POST['username'], ENT_QUOTES); ?>"/><br />
+		<?php if($passMismatch){?><span style="color: #EE5D07;">Password Mismatch</span><?php }?><br />
+		<span>Password</span>
+		<?php if($emptyPassword1){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="password" name="pass1" size="30" /><br />
+		<span>Confirm Password</span>
+		<?php if($emptyPassword2){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="password" name="pass2" size="30" /><br />
+		
+		<input type="submit" value="Add Admin" style="margin-top: 15px;" />	
+		<input type="hidden" name="addAdminForm" value="addAdmin" />
+	</form>
+	<hr />
+	<a href="admincp.php">Admin Control Panel</a>
+</div>

@@ -1,0 +1,80 @@
+<?php if ($preHeader == true) require($preHeaderFile); ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+	<!--LINK ICON-->
+	<link rel="shortcut icon" href="../favicon.ico" />
+	<!--INSERT TITLE OF THE PAGE HERE-->
+	<title><?php echo "$title"; ?></title>
+	<!--ENCODING-->
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-7" />
+	<!--KEYWORDS-->
+	<meta name="keywords" content="free open source software, foss, GNU, linux, unix, OSS, di, dit, uoa, university of athens, ΕΛ/ΛΑΚ" />
+	<!--AUTHOR-->
+	<meta name="author" content="foss - uoa group" />
+	<!-- RSS FEEDs -->
+	<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="http://feeds2.feedburner.com/FossUoaRssFeed" />
+	<link rel="alternate" type="application/rss+xml" title="RSS Feed (Meetings)" href="http://feeds2.feedburner.com/FossUoaRssFeed-Meetings" />
+	<!-- EXTERNAL CSS -->
+	<link rel="stylesheet" href="../css/common.css" type="text/css" media="all" />
+<?php
+	$BASE = "../$lang/";
+	if ($header == true) require($headerfile);
+	if ( (date("m") == "12" && date("d") >= 11) || (date("m") == "01" && date("d") <= 7) ) $xmas_on = true;  else $xmas_on = false;
+?>
+</head>
+
+<body>
+	<!-- CENTRAL PART OF THE PAGE -->
+	<div id="center">
+		<!-- BANNER -->
+		<div id="banner">
+			<a href="index.php"><img src=<?php if ($xmas_on) echo '"../img/gnu_banner_xmas.png"'; else echo '"../img/gnu_banner.png"'; ?> alt="gnu banner" /></a>
+		</div>
+
+		<!-- NAVIGATION -->
+		<div id="navigation">
+			<a href="<?php echo $BASE;?>index.php">home</a> | <a href="../wiki/">wiki</a> | <a href="../forum/">forum</a> |
+			<a href="../gallery/index.php">gallery</a> | <a href="<?php echo $BASE;?>polls.php">polls</a> |
+			<a href="<?php echo $BASE;?>contact.php">contact</a> | <a href="<?php echo $BASE;?>display.php?msg_id=1">about</a>
+		</div>
+
+		<!-- PAGE'S CONTENTS -->
+		<div id="left">
+			<?php require($bodyfile) ?>
+		</div>
+
+		<!-- RIGHT PANEL -->
+		<div id="right">
+			<div class="panelHead">Stay Connected</div>
+			<div class="panel">
+				<span class="title">General RSS feed</span><br />
+				<a href="http://feeds2.feedburner.com/FossUoaRssFeed"><img src="../img/rss.png" alt="RSS Feed" /></a><br />
+<!--				<a href="http://feeds2.feedburner.com/FossUoaRssFeed"><img src="http://feeds2.feedburner.com/~fc/FossUoaRssFeed?bg=EE5D07&amp;fg=333333&amp;anim=1" height="26" width="88" alt="" /></a><br /> -->
+				<span class="title">Meetings' RSS feed</span><br />
+				<a href="http://feeds2.feedburner.com/FossUoaRssFeed-Meetings"><img src="../img/rssm.png" alt="RSS Feed (Meetings)" /></a><br />
+<!--				<a href="http://feeds2.feedburner.com/FossUoaRssFeed-Meetings"><img src="http://feeds2.feedburner.com/~fc/FossUoaRssFeed-Meetings?bg=EE5D07&amp;fg=333333&amp;anim=1" height="26" width="88" alt="" /></a><br /> -->
+			</div>
+			<div class="panelHead">FOSS Gaming Servers</div>
+			<div class="panel">
+				<a href="display.php?msg_id=15">Details</a><hr />
+				<div id="games">
+				Online Now
+				<ul>
+					<li><a href="http://en.wikipedia.org/wiki/Tremulous">Tremulous</a></li>
+					<li><a href="http://en.wikipedia.org/wiki/Wesnoth">Battle for Wesnoth</a></li>
+				</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- FOOTER -->
+		<div id="footer">
+			Foss-UoA | <div style="vertical-align: -70%; display: inline;"><a href="http://www.freebsd.org/" style="border-bottom: 0px !important;">
+<img src="../img/poweredlogo.gif" alt="powered by freeBSD" /></a></div> | <a href="../admin/admincp.php">Admin</a>
+		</div>
+	</div> <!-- CENTRAL PART OF THE PAGE -->
+</body>
+</html>

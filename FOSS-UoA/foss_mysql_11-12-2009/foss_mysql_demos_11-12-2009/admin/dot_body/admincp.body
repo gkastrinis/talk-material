@@ -1,0 +1,15 @@
+<div class="msg">
+	<h2>Admin Control Panel</h2>
+
+	<a href="manageposts.php">Manage Posts</a><br />
+	<a href="managefeeds.php">Manage Feeds</a><br />
+	<a href="manageevents.php">Manage Events</a><br />
+	<hr />
+	<a href="admincp.php?action=changePass">Change Password</a><br />
+	<a href="admincp.php?action=addAdmin">Add Site Admin</a><br />
+	<hr />
+	<form action="admincp.php" method="post">
+		<input type="submit" value="Logout" style="margin-top: 5px;" />	
+		<input type="hidden" name="logoutForm" value="logout" />
+	</form>
+</div>

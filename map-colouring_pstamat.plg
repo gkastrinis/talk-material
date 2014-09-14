@@ -1,0 +1,46 @@
+:- set_flag(print_depth, 1000).
+
+:- lib(ic).
+
+map_coloring(File, NColors, Colors) :-
+   read_input(File, Data),
+   length(Data, N),
+   length(Colors, N),
+   Colors #:: 1..NColors,
+   post_constraints(Data, Data, Colors, Colors),
+   search(Colors, 0, most_constrained, indomain, complete, []).
+
+read_input(File, Lines) :-
+   open(File, read, S),
+   get_lines(S, Lines),
+   close(S).
+
+get_lines(S, Lines) :-
+   read_string(S, end_of_line, _, Line) ->
+      split_string(Line, " \t", "", Words),
+      atoms_strings([Color, Country|Countries], Words),
+      Lines = [(Color, Country, Countries)|Ls],
+      get_lines(S, Ls)
+      ;
+      Lines = [].
+
+atoms_strings([], []).
+atoms_strings([Atom|Atoms], [String|Strings]) :-
+   atom_string(Atom, String),
+   atoms_strings(Atoms, Strings).
+
+post_constraints([], _, [], _).
+post_constraints([(_, _, Countries)|RestCoun], Data, [Color|RestCol], Colors) :-
+   post_cons(Countries, Color, Data, Colors),
+   post_constraints(RestCoun, Data, RestCol, Colors).
+
+post_cons([], _, _, _).
+post_cons([Country|Countries], Color, Data, Colors) :-
+   post_one(Country, Color, Data, Colors),
+   post_cons(Countries, Color, Data, Colors).
+
+post_one(Country, Color1, [(_, Country, _)|_], [Color2|_]):-
+   Color1 #\= Color2.
+post_one(Country1, Color1, [(_, Country2, _)|Countries], [_|Colors]):-
+   Country1 \= Country2,
+   post_one(Country1, Color1, Countries, Colors).

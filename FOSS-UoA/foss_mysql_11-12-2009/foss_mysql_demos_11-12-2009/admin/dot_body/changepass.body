@@ -1,0 +1,25 @@
+<div class="msg">
+	<h2>Admin Control Panel - Change Password</h2>
+
+	<form action="admincp.php?action=changePass" method="post">
+		<span>Current Password</span>
+		<?php
+		if($emptyCurrent){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }
+		else if($valid_err){?><br /><span style="color: #EE5D07;">Invalid Credentials</span>
+		<?php }?><br />
+		<input type="password" name="current" size="30" /><br />
+		<br />
+		<?php if($passMismatch){?><span style="color: #EE5D07;">Password Mismatch</span><?php }?><br />
+		<span>New Password</span>
+		<?php if($emptyPassword1){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="password" name="pass1" size="30" /><br />
+		<span>Confirm New Password</span>
+		<?php if($emptyPassword2){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="password" name="pass2" size="30" /><br />
+		
+		<input type="submit" value="Change Password" style="margin-top: 15px;" />	
+		<input type="hidden" name="changePassForm" value="changePass" />
+	</form>
+	<hr />
+	<a href="admincp.php">Admin Control Panel</a>
+</div>

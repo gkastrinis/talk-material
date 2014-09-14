@@ -1,0 +1,15 @@
+<div class="msg">
+	<h2>Admin Login</h2>
+
+	<form action="adminlogin.php" method="post">
+		<?php if($valid_err){?><span style="color: #EE5D07;">Invalid Credentials</span><br /><?php }?>
+		<span>Username</span>
+		<?php if($emptyName){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="username" size="30" value="<?php echo htmlspecialchars($_POST['username'], ENT_QUOTES); ?>"/><br />
+		<span>Password</span>
+		<?php if($emptyPass){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="password" name="pass" size="30" /><br />
+		<input type="submit" value="Login" style="margin-top: 5px;" /><br />	
+		<input type="hidden" name="loginForm" value="login" />
+	</form>
+</div>

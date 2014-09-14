@@ -1,0 +1,113 @@
+<div class="msg">
+<?php
+if (isset($_GET['action']) && $_GET['action'] === "new")
+{
+?>
+	<h2>Admin Control Panel - New Feed Entry</h2>
+
+	<form action="managefeeds.php?action=new" method="post">
+		Feed
+		<select name="feedType">
+			<option value="General RSS" <?if ($_POST['feedType'] == "General RSS") echo "selected";?>>General RSS Feed</option>
+			<option value="Meetings RSS" <?if ($_POST['feedType'] == "Meetings RSS") echo "selected";?>>Meetings' RSS feed</option>
+		</select><br />
+		<span>Title</span>
+		<?php if($emptyTitle){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="title" size="60" value="<?php echo htmlspecialchars($_POST['title'], ENT_QUOTES);?>"/><br />
+		<span>Link</span>
+		<?php if($emptyLink){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="link" size="60" value="<?php echo htmlspecialchars($_POST['link'], ENT_QUOTES);?>"/><br />
+		<span>Description</span>
+		<?php if($emptyDesc){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<textarea name="desc" rows="3" cols="70"><?php echo htmlspecialchars($_POST['desc'], ENT_QUOTES);?></textarea><br />
+		
+		<input type="submit" value="Add Feed Entry" style="margin-top: 15px;" />
+		<input type="hidden" name="addFeedForm" value="addFeed" />
+	</form>
+<?php
+}
+else if (isset($_GET['action']) && $_GET['action'] === "edit")
+{
+	$mid = preg_replace("/[^0-9]/","", htmlentities($_GET['mid'], ENT_QUOTES));
+	$connection = dbConnect();
+	$query = sprintf("SELECT title, link, description, type FROM feeds WHERE id=%s", $mid);
+	$res = dbQuery($query, $connection);
+	
+	$title = (isset($_POST['title']) ? $_POST['title'] : $res[0]['title']);
+	$link = (isset($_POST['link']) ? $_POST['link'] : $res[0]['link']);
+	$desc = (isset($_POST['desc']) ? $_POST['desc'] : $res[0]['description']);
+	$feedType = (isset($_POST['feedType']) ? $_POST['feedType'] : $res[0]['type']);
+?>
+	<h2>Admin Control Panel - Edit Feed Entry</h2>
+
+	<form action="managefeeds.php?action=edit&mid=<?php echo $_GET['mid'];?>" method="post">
+		Feed
+		<select name="feedType">
+			<option value="General RSS" <?if ($feedType == "General RSS") echo "selected";?>>General RSS Feed</option>
+			<option value="Meetings RSS" <?if ($feedType == "Meetings RSS") echo "selected";?>>Meetings RSS feed</option>
+		</select><br />
+		<span>Title</span>
+		<?php if($emptyTitle){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="title" size="60" value="<?php echo htmlspecialchars($title, ENT_QUOTES);?>"/><br />
+		<span>Link</span>
+		<?php if($emptyLink){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="link" size="60" value="<?php echo htmlspecialchars($link, ENT_QUOTES);?>"/><br />
+		<span>Description</span>
+		<?php if($emptyDesc){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<textarea name="desc" rows="3" cols="70"><?php echo htmlspecialchars($desc, ENT_QUOTES);?></textarea><br />
+		
+		<input type="submit" value="Edit Feed Entry" style="margin-top: 15px;" />
+		<input type="hidden" name="editFeedForm" value="editFeed" />
+	</form>
+<?php
+}
+else
+{
+?>
+	<h2>Admin Control Panel - Manage Feeds</h2>
+	
+<?php
+	if (isset($_POST['langForm'])) $_SESSION['feedLang'] = $_POST['lang'];
+?>
+	<form action="managefeeds.php" method="post">
+	Language
+	<select name="lang" onchange="this.form.submit();">
+		<option value="gr" <?if ($_SESSION['feedLang'] == "gr") echo "selected";?>>Greek</option>
+		<option value="en" <?if ($_SESSION['feedLang'] == "en") echo "selected";?>>English</option>
+	</select>
+	<input type="submit" value="Select"/>
+	<input type="hidden" name="langForm" value="langForm" />
+	</form><br /><br />
+	
+	<a href="managefeeds.php?action=new">New Feed Entry</a>
+	<table width="600" border="0" cellpadding="6">
+		<tr style="font-weight:bold;"><td>id</td><td>Title</td><td>Date</td><td>Type</td><td>Author</td><td>Actions</td></tr>
+<?php
+	$connection = dbConnect();
+	$query = sprintf("SELECT * FROM feeds WHERE lang='%s' AND deleted=false ORDER BY id DESC", $_SESSION['feedLang']);
+	$feedEntries = dbQuery($query, $connection);
+
+	foreach ($feedEntries as $feedEntry)
+	{
+?>
+	<tr>
+	<td><?php echo $feedEntry['id']?></td>
+	<td><a href="<?php echo $feedEntry['link'];?>"><?php echo htmlspecialchars($feedEntry['title'], ENT_QUOTES);?></a></td>
+	<td><?php echo $feedEntry['date'];?></a></td>
+	<td><?php echo $feedEntry['type'];?></td>
+	<td><?php echo $feedEntry['web_admins_username'];?></td>
+	<td><a href="managefeeds.php?action=edit&mid=<?php echo $feedEntry['id'];?>">Edit</a>
+		<a href="managefeeds.php?action=delete&mid=<?php echo $feedEntry['id'];?>">Delete</a></td>
+	</tr>
+<?php
+	}
+?>
+	</table>
+	<a href="managefeeds.php?action=update&type=generalRSS">Update General RSS feed file</a><br />
+	<a href="managefeeds.php?action=update&type=meetingsRSS">Update Meetings' RSS feed file</a>
+<?php
+}
+?>
+	<hr />
+	<a href="admincp.php">Admin Control Panel</a> | <a href="managefeeds.php">Manage Feeds</a>
+</div>

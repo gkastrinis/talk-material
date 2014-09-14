@@ -1,0 +1,18 @@
+<?php
+include "../php/display_script.php";
+
+if (!$GLOBALS['valid_id'])
+{
+	echo '<div class="msg">
+<h2>Μη έγκυρο μήνυμα</h2>
+<p>
+<img src="../img/Attention.png" alt="attention sign" /><br /><br />
+Επιλέξατε για προβολή κάποιο μη έγκυρο μήνυμα.<br />
+<br />
+Ελέγξτε την διεύθυνση και δοκιμάστε ξανά.<br />
+<br />
+</p>
+</div>
+';
+}
+?>

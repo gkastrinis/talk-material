@@ -1,0 +1,225 @@
+body {
+	background: #304760;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+}
+
+img {
+	border: 0;
+}
+
+p {
+	color: #555;
+	font: normal 14px/150% Arial, Helvetica, sans-serif;
+}
+
+p a:link, p a:visited {
+	color: #EE5D07 ! important;
+	text-decoration: none;
+	font: normal 15px Arial, Helvetica, sans-serif;
+}
+p a:hover {
+	border-bottom: 1px #EE5D07 dotted ! important;
+}
+
+
+
+#center {
+	background: url("../img/mainBack.jpg");
+	border-left: 3px solid black;
+	border-right: 3px solid black;
+	width: 1024px;
+	height: 100%;
+	margin: 0px auto 0px auto;
+	text-align: left;
+}
+
+#banner {
+	background: url("../img/banner.jpg") no-repeat;
+	width: 1024px;
+	height: 178px;
+}
+#banner img {
+	margin-top: 20px;
+	padding-left: 40px;
+}
+
+#navigation {
+	background: url("../img/headBack.gif");
+	border-bottom: 3px solid black;
+	width: 982px;
+	height: 42px;
+	margin-bottom: 20px;
+	padding: 18px 42px 0px 0px;
+	color: #adc2ca;
+	text-align: right;
+}
+#navigation a {
+	padding: 5px;
+	color: #adc2ca;
+	text-decoration: none;
+	font: normal 18px Arial, Helvetica, sans-serif;
+}
+#navigation a:hover, #navigation a:active {
+	color: #fff;
+}
+
+#left {
+	float: left;
+	width: 645px;
+	margin-left: 42px;
+}
+
+#right {
+	float: left;
+	width: 280px;
+	margin-left: 15px;
+	color: #A5A5A5;
+	text-align:center;
+	font: normal 12px Arial, Helvetica, sans-serif;
+}
+
+#footer {
+	background: url("../img/footerBack.gif");
+	border-top: 3px solid black;
+	padding-top: 5px;
+	clear: both;
+	height: 38px;
+	color: #979595;
+	text-align: center;
+	font: normal 14px Arial, Helvetica, sans-serif;
+}
+
+#footer a:link, #footer a:visited {
+	color: #979595 ! important;
+	text-decoration: none;
+}
+#footer a:hover {
+	border-bottom: 1px #979595 solid ! important;
+}
+
+
+
+.msg {
+	background: #f4f4ef;
+	border: 2px solid #252627;
+	margin: 0px 0px 20px 0px;
+	padding: 15px;
+	color: #555;
+	text-align: justify;
+	font: normal 14px/150% Arial, Helvetica, sans-serif;
+}
+
+.msg h2 {
+	color:  #EE5D07;
+	background: #333333;
+	padding: 3px 5px 3px 5px;
+	font: normal 22px Arial, Helvetica, sans-serif;
+}
+.msg h2 a, .msg h2 a:visited {
+	color: #EE5D07 ! important;
+	text-decoration: none ! important;	
+}
+.msg h2 a:hover {
+	color: #EE5D07 ! important;
+	border-bottom: 1px #EE5D07 solid ! important;
+}
+
+.msg h5 {
+	color: #A5A5A5;
+	background: #333333;
+	padding: 1px 5px 1px 5px;
+	font: italic 11px Arial, Helvetica, sans-serif;
+}
+
+.msg a:link, .msg a:visited, #right a:link, #right a:visited {
+	color: #979595;
+}
+.msg a:hover, #right a:hover {
+	color: #EE5D07;
+	text-decoration: none;
+}
+
+.imglink:hover {
+	border-bottom: none ! important;
+}
+
+
+.panelHead {
+	background: url("../img/panelHeadBack.gif") repeat-x;
+	border: 3px solid #a3a189;
+	border-bottom: 0px solid #a3a189;
+	height: 20px;
+	padding: 5px 0px 4px 10px;
+	color: #333;
+	text-align: left;
+	font: bold 16px Arial, Helvetica, sans-serif;
+}
+
+.panel {
+	background: #0c0c0c url("../img/panelBack.gif") repeat-x;
+	border: 3px solid #a3a189;
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.title {
+	color: #EE5D07;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+#events, #games, #polls {
+	text-align: left;
+}
+
+
+
+/* CSS for calendar */
+#calendar, #calendar table {
+	width: 141px;
+	margin: 20px auto 20px auto;
+	color: #DDD;
+	font: normal 12px/20px Arial, Helvetica, sans-serif;
+}
+#calendar a:link, #calendar a:visited {	
+	color: #FFF;
+	text-decoration: underline;
+}
+#calendar a:hover, #calendar a:active {
+	color: #EE5D07;
+}
+th {
+	padding-top: 7px;
+	padding-bottom: 5px;
+	color: #FFF;
+	font: bold 12px Arial, Helvetica, sans-serif;
+}
+td {
+	width: 20px;
+	height: 20px;
+	text-align: center;
+}
+td a {
+	text-decoration: none;
+	font-weight: bold;
+	display: block;
+}
+.nav {
+	color: #EE5D07;	
+	text-align: center;
+	text-decoration: none;
+	font: bold 16px Arial, Helvetica, sans-serif;
+}
+.head {
+	width: 141px;
+	color: #EE5D07;
+	text-align: center;
+	font: bold 12px Arial, Helvetica, sans-serif;	
+}
+.today, .today a, .today a:link, .today a:visited {
+	color: #EE5D07;
+	font-weight: bold;
+	border:1px solid #616B76;
+}

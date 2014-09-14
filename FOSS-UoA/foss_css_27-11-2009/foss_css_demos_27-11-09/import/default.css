@@ -1,0 +1,7 @@
+@CHARSET "UTF-8";
+@import url("extra.css") screen, projection;
+p
+{
+	color:red;
+	text-align:center;
+}

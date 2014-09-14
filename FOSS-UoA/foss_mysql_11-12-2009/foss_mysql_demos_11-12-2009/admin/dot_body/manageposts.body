@@ -1,0 +1,113 @@
+<div class="msg">
+<?php
+if (isset($_GET['action']) && $_GET['action'] === "new")
+{
+?>
+	<h2>Admin Control Panel - New Post</h2>
+
+	<form action="manageposts.php?action=new" method="post">
+		<span>Title</span>
+		<?php if($emptyTitle){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="title" size="60" value="<?php echo htmlspecialchars($_POST['title'], ENT_QUOTES);?>"/><br />
+		<span>Body</span>
+		<?php if($emptyBody){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<textarea name="body" rows="15" cols="70"><?php echo htmlspecialchars($_POST['body'], ENT_QUOTES);?></textarea><br />
+		
+		<input type="submit" value="Add Post" style="margin-top: 15px;" />
+		<input type="submit" value="Preview Post" name="preview" style="margin-top: 15px;" />
+		<input type="hidden" name="addPostForm" value="addPost" />
+	</form>
+<?php
+	if (isset($_POST['preview']))
+	{
+?>
+		<hr />
+		<h1 style="color: #EE5D07;">Preview</h1>
+		<h2><?php echo htmlspecialchars($_POST['title'], ENT_QUOTES);?></h2>
+		<p><?php echo htmlspecialchars($_POST['body'], ENT_QUOTES);?></p>
+<?php
+	}
+}
+else if (isset($_GET['action']) && $_GET['action'] === "edit")
+{
+	$mid = preg_replace("/[^0-9]/","", htmlspecialchars($_GET['mid'], ENT_QUOTES));
+	$connection = dbConnect();
+	$query = sprintf("SELECT title, body FROM posts WHERE id='%s'", $mid);
+	$res = dbQuery($query, $connection);
+	
+	$title = (isset($_POST['title']) ? $_POST['title'] : $res[0]['title']);
+	$body = (isset($_POST['body']) ? $_POST['body'] : $res[0]['body']);
+?>
+	<h2>Admin Control Panel - Edit Post</h2>
+	
+	<form action="manageposts.php?action=edit&mid=<?php echo $_GET['mid'];?>" method="post">
+		<span>Title</span>
+		<?php if($emptyTitle){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="title" size="60" value="<?php echo htmlspecialchars($title, ENT_QUOTES);?>"/><br />
+		<span>Body</span>
+		<?php if($emptyBody){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<textarea name="body" rows="15" cols="70"><?php echo htmlspecialchars($body, ENT_QUOTES);?></textarea><br />
+		
+		<input type="submit" value="Edit Post" style="margin-top: 15px;" />
+		<input type="submit" value="Preview Post" name="preview" style="margin-top: 15px;" />
+		<input type="hidden" name="editPostForm" value="editPost" />
+	</form>
+<?php
+	if (isset($_POST['preview']))
+	{
+?>
+		<hr />
+		<h1 style="color: #EE5D07;">Preview</h1>
+		<h2><?php echo htmlspecialchars($title, ENT_QUOTES);?></h2>
+		<p><?php echo htmlspecialchars($body, ENT_QUOTES);?></p>
+<?php
+	}
+}
+else
+{
+?>
+	<h2>Admin Control Panel - Manage Posts</h2>
+
+<?php
+	if (isset($_POST['postForm'])) $_SESSION['postLang'] = $_POST['lang'];
+?>
+	<form action="manageposts.php" method="post">
+	Language
+	<select name="lang" onchange="this.form.submit();">
+		<option value="gr" <?if ($_SESSION['postLang'] == "gr") echo "selected";?>>Greek</option>
+		<option value="en" <?if ($_SESSION['postLang'] == "en") echo "selected";?>>English</option>
+	</select>
+	<input type="submit" value="Select"/>
+	<input type="hidden" name="postForm" value="postForm" />
+	</form><br /><br />	
+
+	<a href="manageposts.php?action=new">New Post</a>
+	<table width="600" border="0" cellpadding="6">
+		<tr style="font-weight:bold;"><td>id</td><td>Post</td><td>Date</td><td>Last Edit</td><td>Author</td><td>Actions</td></tr>
+<?php
+	$connection = dbConnect();
+	$query = sprintf("SELECT id, web_admins_username, title, date, edit_date FROM posts WHERE lang='%s' AND deleted=false ORDER BY id DESC", $_SESSION['postLang']);
+	$posts = dbQuery($query, $connection);
+
+	foreach ($posts as $post)
+	{
+?>
+	<tr>
+	<td><?php echo $post['id']?></td>
+	<td><a href="<?php echo $BASE;?>display.php?msg_id=<?php echo $post['id'];?>"><?php echo htmlspecialchars($post['title'], ENT_QUOTES);?></a></td>
+	<td><?php echo $post['date'];?></td>
+	<td><?php echo $post['edit_date'];?></td>
+	<td><?php echo $post['web_admins_username'];?></td>
+	<td><a href="manageposts.php?action=edit&mid=<?php echo $post['id'];?>">Edit</a>
+		<a href="manageposts.php?action=delete&mid=<?php echo $post['id'];?>">Delete</a></td>
+	</tr>
+<?php
+	}
+?>
+	</table>
+<?php
+}
+?>
+	<hr />
+	<a href="admincp.php">Admin Control Panel</a> | <a href="manageposts.php">Manage Posts</a>
+</div>

@@ -1,0 +1,75 @@
+body {
+	background: #304760;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+}
+
+img {
+	border: 0;
+}
+
+p {
+	color: #555;
+	font: normal 14px/150% Arial, Helvetica, sans-serif;
+}
+
+p a:link, p a:visited {
+	color: #EE5D07 ! important;
+	text-decoration: none;
+	font: normal 15px Arial, Helvetica, sans-serif;
+}
+p a:hover {
+	border-bottom: 1px #EE5D07 dotted ! important;
+}
+
+
+#left {
+	float: left;
+	width: 645px;
+	margin-left: 42px;
+}
+
+.msg {
+	background: #f4f4ef;
+	border: 2px solid #252627;
+	margin: 0px 0px 20px 0px;
+	padding: 15px;
+	color: #555;
+	text-align: justify;
+	font: normal 14px/150% Arial, Helvetica, sans-serif;
+}
+
+.msg h2 {
+	color:  #EE5D07;
+	background: #333333;
+	padding: 3px 5px 3px 5px;
+	font: normal 22px Arial, Helvetica, sans-serif;
+}
+.msg h2 a, .msg h2 a:visited {
+	color: #EE5D07 ! important;
+	text-decoration: none ! important;	
+}
+.msg h2 a:hover {
+	color: #EE5D07 ! important;
+	border-bottom: 1px #EE5D07 solid ! important;
+}
+
+.msg h5 {
+	color: #A5A5A5;
+	background: #333333;
+	padding: 1px 5px 1px 5px;
+	font: italic 11px Arial, Helvetica, sans-serif;
+}
+
+.msg a:link, .msg a:visited, #right a:link, #right a:visited {
+	color: #979595;
+}
+.msg a:hover, #right a:hover {
+	color: #EE5D07;
+	text-decoration: none;
+}
+
+.imglink:hover {
+	border-bottom: none ! important;
+}

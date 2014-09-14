@@ -1,0 +1,95 @@
+<div class="msg">
+<?php
+if (isset($_GET['action']) && $_GET['action'] === "new")
+{
+?>
+	<h2>Admin Control Panel - New Event</h2>
+
+	<form action="manageevents.php?action=new" method="post">
+		<span>Date (YYYY-MM-DD)</span>
+		<?php if($emptyDate){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }
+		else if($dateError){?><br /><span style="color: #EE5D07;">Invalid Date Format</span><?php }?><br />
+		<input type="text" name="date" size="60" value="<?php echo htmlspecialchars($_POST['date'], ENT_QUOTES);?>"/><br />
+		<span>EN Message</span>
+		<?php if($emptyMsgEN){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="msg_en" size="60" value="<?php echo htmlspecialchars($_POST['msg_en'], ENT_QUOTES);?>"/><br />
+		<span>GR Message</span>
+		<?php if($emptyMsgGR){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="msg_gr" size="60" value="<?php echo htmlspecialchars($_POST['msg_gr'], ENT_QUOTES);?>"/><br />
+		<span>Link</span>
+		<?php if($emptyLink){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="link" size="60" value="<?php echo htmlspecialchars($_POST['link'], ENT_QUOTES);?>"/><br />
+		
+		<input type="submit" value="Add Event" style="margin-top: 15px;" />
+		<input type="hidden" name="addEventForm" value="addEvent" />
+	</form>
+<?php
+}
+else if (isset($_GET['action']) && $_GET['action'] === "edit")
+{
+	$connection = dbConnect();
+	$query = sprintf("SELECT msg_en, msg_gr, link, date FROM events WHERE id=%s", $_GET['mid']);
+	$res = dbQuery($query, $connection);
+	
+	$date = (isset($_POST['date']) ? $_POST['date'] : $res[0]['date']);
+	$msg_en = (isset($_POST['msg_en']) ? $_POST['msg_en'] : $res[0]['msg_en']);
+	$msg_gr = (isset($_POST['msg_gr']) ? $_POST['msg_gr'] : $res[0]['msg_gr']);
+	$link = (isset($_POST['link']) ? $_POST['link'] : $res[0]['link']);
+?>
+	<h2>Admin Control Panel - Edit Event</h2>
+
+	<form action="manageevents.php?action=edit&mid=<?php echo $_GET['mid'];?>" method="post">
+		<span>Date (YYYY-MM-DD)</span>
+		<?php if($emptyDate){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }
+		else if($dateError){?><br /><span style="color: #EE5D07;">Invalid Date Format</span><?php }?><br />
+		<input type="text" name="date" size="60" value="<?php echo htmlspecialchars($date, ENT_QUOTES);?>"/><br />
+		<span>EN Message</span>
+		<?php if($emptyMsgEN){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="msg_en" size="60" value="<?php echo htmlspecialchars($msg_en, ENT_QUOTES);?>"/><br />
+		<span>GR Message</span>
+		<?php if($emptyMsgGR){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="msg_gr" size="60" value="<?php echo htmlspecialchars($msg_gr, ENT_QUOTES);?>"/><br />
+		<span>Link</span>
+		<?php if($emptyLink){?><br /><span style="color: #EE5D07;">Mandatory Field</span><?php }?><br />
+		<input type="text" name="link" size="60" value="<?php echo htmlspecialchars($link, ENT_QUOTES);?>"/><br />
+		
+		<input type="submit" value="Edit Event" style="margin-top: 15px;" />
+		<input type="hidden" name="editEventForm" value="editEvent" />
+	</form>
+<?php
+}
+else
+{
+?>
+	<h2>Admin Control Panel - Manage Events</h2>
+	
+	<a href="manageevents.php?action=new">New Event</a>
+	<table width="600" border="0" cellpadding="6">
+		<tr style="font-weight:bold;"><td>id</td><td>EN message</td><td>GR message</td><td>Date</td><td>Author</td><td>Actions</td></tr>
+<?php
+	$connection = dbConnect();
+	$events = dbQuery("SELECT * FROM events WHERE deleted=false ORDER BY id DESC", $connection);
+
+	foreach ($events as $event)
+	{
+?>
+	<tr>
+	<td><?php echo $event['id']?></td>
+	<td><a href="<?php echo $event['link'];?>"><?php echo htmlspecialchars($event['msg_en'], ENT_QUOTES);?></a></td>
+	<td><a href="<?php echo $event['link'];?>"><?php echo htmlspecialchars($event['msg_gr'], ENT_QUOTES);?></a></td>
+	<td><?php echo $event['date'];?></td>
+	<td><?php echo $event['web_admins_username'];?></td>
+	<td><a href="manageevents.php?action=edit&mid=<?php echo $event['id'];?>">Edit</a>
+		<a href="manageevents.php?action=delete&mid=<?php echo $event['id'];?>">Delete</a></td>
+	</tr>
+<?php
+	}
+?>
+	</table>
+	<a href="manageevents.php?action=update">Update XML event file</a>
+<?php
+}
+?>
+	<hr />
+	<a href="admincp.php">Admin Control Panel</a> | <a href="manageevents.php">Manage Events</a>
+</div>

@@ -1,0 +1,93 @@
+body
+{
+	background: #333;
+	font-family: verdana;
+}
+
+body > div
+{
+	width: 800px;
+	margin: 15px auto;
+	padding: 15px;
+	background: black;
+}
+
+h1, h2
+{
+	color: white;
+	text-align: center;
+}
+h4
+{
+	color: white;
+}
+
+hr
+{
+	width: 90%;
+}
+
+form
+{
+	width: 300px;
+	margin: 0 auto;
+}
+label
+{
+	width: 80px;
+	display: inline-block;
+	color: white;
+}
+input[type="text"],
+input[type="password"],
+textarea
+{
+	margin-top: 6px;
+	padding: 2px;
+	font-size: 0.8em;
+	color: white;
+	background: #AAA;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus
+{
+	color: #333;
+	background: white;
+}
+textarea
+{
+	height: 200px;
+}
+input[type="submit"]
+{
+	width: 200px;
+	display: block;
+	margin: 6px auto 0 auto;
+}
+
+a, a:visited
+{
+	text-decoration: none;
+	color: #5B5;
+}
+a:hover
+{
+	border-bottom: 1px solid #5B5;
+}
+
+.imglink:hover
+{
+	border-bottom: 0px;
+}
+
+.post
+{
+	margin: 10px auto;
+	padding: 10px;
+	background: #DDD;
+}
+.post h4
+{
+	color: black;
+}
